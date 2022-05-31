@@ -1,0 +1,33 @@
+name: PHP Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Start containers
+        run: 
+          docker-compose up db
+          docker-compose up app
+
+      - name: Install dependencies
+        run: docker-compose exec -T app composer install --prefer-dist --no-progress
+
+      - name: Test App
+        run: docker-compose exec -T app make
+
+      - name: Stop containers
+        run: docker-compose down -v
+
