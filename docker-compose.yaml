@@ -50,7 +50,6 @@ services:
   frontend:
     build:
       context: ./frontend
-    image: altimofeev/vue-frontend
     container_name: test_alpha_frontend
     working_dir: /frontend
     volumes:
