@@ -16,12 +16,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      
+      - name: Start db
+        run: docker-compose up -d db
 
       - name: Start containers
         run: docker-compose up -d
 
       - name: Install dependencies
         run: docker-compose exec -T app composer install --prefer-dist --no-progress
+        
+      - name: Wakeup
+        run: sleep 10
 
       - name: Test App
         run: docker-compose exec -T app make
