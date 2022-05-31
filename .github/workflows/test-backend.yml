@@ -18,9 +18,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Start containers
-        run: 
-          docker-compose up db
-          docker-compose up app
+        run: docker-compose up --no-build
 
       - name: Install dependencies
         run: docker-compose exec -T app composer install --prefer-dist --no-progress
